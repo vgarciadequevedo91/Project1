@@ -1,0 +1,84 @@
+<html>
+  <!--
+      FUNCTIONS TO BE IMPLEMENTED:
+        doLogin()
+        doLogout()
+        doSearch()
+        doDelete()
+        doAdd()
+
+        Include error message should any functions fail.
+        RESULTS (error messages) TO IMPLEMENT:
+          "loginResult" => "User/Password combination incorrect", "Login Failed. Try Again", etc.
+          "searchResult" => "Contact found", "Contact not found"
+          "deleteResult" => "Unable to delete contact", "Contact successfully deleted"
+          "addResult" => "Unable to add contact", "Contact successfully added"
+  -->
+
+  <head>
+      <title>Contact Manager - Group 5</title> <!-- what will appear in tab bar -->
+      <script type = "text/javascript" src = "js/code.js"></script> <!-- 'code' is
+      name of .js file found in 'js' folder in dir -->
+      <link href="css/styles.css" rel="stylesheet"> <!-- folder = css -->
+  </head>
+
+
+  <body>
+      <h1>Personal Contact Manager</h1> <!-- title of page, preferably name of program -->
+
+      <div id = "login"> <!-- appearance when logging in -->
+          <h2>Please Log In</h2>
+          <br/>Username:
+            <input type = "text" placeholder = "Username" style="text-align: center" id = "loginUser">
+          <br/>Password:
+            <input type = "password" placeholder = "Password" style="text-align: center" id = "loginPassword">
+          <br/><button type = "button" id = "loginButton" class = "buttons" onclick="doLogin();">
+          Log In</button><br/> <!-- class allows .css file to alter appearance of all objects of class -->
+
+          <span id = "loginResult"></span> <!-- will state login error, if any -->
+
+          <!-- possibly include some way to redirect if login succeeds for simpler UI manipulation -->
+
+      </div>
+
+  <!-- REMEMBER TO ALTER VISIBILITY OF COMPONENTS BELOW -->
+
+      <div id = "loggedin"> <!-- appearance when logged in -->
+          Successfully signed in as <span id ="user"></span><br/>
+            <button type = "button" id = "logoutButton" class = "buttons" onclick = "doLogout();">
+              Sign Out</button>
+      </div>
+
+
+      <div id = "UI"> <!-- overall UI, when logged in -->
+            <br/>
+            <h3>Search for Contact</h3>
+            <br/>First Name:
+              <input type = "text" placeholder = "First Name" style="text-align: center" id = "otherUserFN">
+            <br/>Last Name:
+              <input type = "text" placeholder = "Last Name" style="text-align: center" id = "otherUserLN">
+            <br/><button type = "button" id = "searchButton" class = "buttons" onclick="doSearch();">
+            Search</button>
+            <span id = "searchResult"></span> <!-- will state if user not found -->
+
+            <!-- the doDelete() function will use otherUserFN/LN for operations -->
+            <button type = "button" id = "deleteButton" class = "buttons" onclick="doDelete();">
+            Delete Contact</button>
+            <span id = "deleteResult"></span> <!-- will state if user can be deleted or not -->
+
+            <!-- if user not found, will display user already added -->
+            <br/><br/>
+            <h3>Add Contact</h3>
+            <br/>First Name:
+              <input type = "text" placeholder = "First Name" style="text-align: center" id = "addUserFN">
+            <br/>Last Name:
+              <input type = "text" placeholder = "Last Name" style="text-align: center" id = "addUserLN">
+            <br/><button type = "button" id = "addButton" class = "buttons" onclick="doAdd();">
+            Add Contact</button>
+            <span id = "addResult"></span> <!-- will state if user can be added or not -->
+
+      </div>
+  </body>
+
+
+</html>
