@@ -8,7 +8,7 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
-// Probably don't need this for
+// Probably don't need this production deployment
 app.listen(8081, function() {
   console.log('App running on port 8081.')
 })
