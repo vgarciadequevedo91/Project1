@@ -1,3 +1,5 @@
+
+
 <html>
   <!--
       FUNCTIONS TO BE IMPLEMENTED:
@@ -6,7 +8,6 @@
         doSearch()
         doDelete()
         doAdd()
-
         Include error message should any functions fail.
         RESULTS (error messages) TO IMPLEMENT:
           "loginResult" => "User/Password combination incorrect", "Login Failed. Try Again", etc.
@@ -19,7 +20,7 @@
       <title>Contact Manager - Group 5</title> <!-- what will appear in tab bar -->
       <script type = "text/javascript" src = "js/code.js"></script> <!-- 'code' is
       name of .js file found in 'js' folder in dir -->
-      <link href="css/styles.css" rel="stylesheet"> <!-- folder = css -->
+      <link href="styles.css" rel="stylesheet"> <!-- folder = css -->
       <link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
   </head>
 
@@ -34,8 +35,11 @@
             <input type = "text" placeholder = "Enter your username" id = "loginUser">
           <br/>Password:
             <input type = "password" placeholder = "Enter your password" id = "loginPassword">
-          <br/><button type = "button" id = "loginButton" class = "buttons" onclick="doLogin();">
-          Log In</button><br/> <!-- class allows .css file to alter appearance of all objects of class -->
+</br>
+        <div class = "flexgroup2">
+            <br/><button type = "button" id = "loginButton" class = "buttons" onclick="doLogin();">
+            Log In</button><br/> <!-- class allows .css file to alter appearance of all objects of class -->
+        </div>
 
           <span id = "loginResult"></span> <!-- will state login error, if any -->
 
@@ -44,40 +48,91 @@
       </div>
 
   <!-- REMEMBER TO ALTER VISIBILITY OF COMPONENTS BELOW -->
-
+<br/>
       <div id = "loggedin"> <!-- appearance when logged in -->
-          Successfully signed in as <span id ="user"></span><br/>
-            <button type = "button" id = "logoutButton" class = "buttons" onclick = "doLogout();">
-              Sign Out</button>
+
+          <div class = "signedinText"> Successfully signed in as <span id ="userName"></span> </div>
+        </br>
+          <div class = "flexgroup2">
+              <button type = "button" id = "logoutButton" class = "buttons" onclick = "doLogout();">
+                Sign Out</button>
+          </div>
       </div>
 
 
       <div id = "UI"> <!-- overall UI, when logged in -->
             <br/>
             <h3>Search for Contact</h3>
-            <br/>First Name:
-              <input type = "text" placeholder = "John" id = "otherUserFN">
-            <br/>Last Name:
-              <input type = "text" placeholder = "Doe" id = "otherUserLN">
-            <br/><button type = "button" id = "searchButton" class = "buttons" onclick="doSearch();">
-            Search</button>
-            <span id = "searchResult"></span> <!-- will state if user not found -->
+            <div class = "flexgroup">
+                    <div id = "field" >
+                  <br/>First Name:
+                    <input type = "text" placeholder = "John" id = "otherUserFN">
+                  </div>
 
-            <!-- the doDelete() function will use otherUserFN/LN for operations -->
-            <button type = "button" id = "deleteButton" class = "buttons" onclick="doDelete();">
-            Delete Contact</button>
-            <span id = "deleteResult"></span> <!-- will state if user can be deleted or not -->
+                    <div id = "field" >
+                  <br/>Last Name:
+                    <input type = "text" placeholder = "Doe" id = "otherUserLN">
+                  </div>
+            </div>
+
+
+              <br/><button type = "button" id = "searchButton" class = "buttons" onclick="doSearch();">
+              Search</button>
+              <span id = "searchResult"></span> <!-- will state if user not found -->
+
+              <!-- the doDelete() function will use otherUserFN/LN for operations -->
+              <button type = "button" id = "deleteButton" class = "buttons" onclick="doDelete();">
+              Delete Contact</button>
+              <span id = "deleteResult"></span> <!-- will state if user can be deleted or not -->
+
+
 
             <!-- if user not found, will display user already added -->
             <br/><br/>
             <h3>Add Contact</h3>
+
+
+            <div class = "flexgroup">
+                <div id = "field" >
             <br/>First Name:
               <input type = "text" placeholder = "John" id = "addUserFN">
+            </div>
+
+              <div id = "field" >
             <br/>Last Name:
-              <input type = "text" placeholder = "Doe" id = "addUserLN">
-            <br/><button type = "button" id = "addButton" class = "buttons" onclick="doAdd();">
-            Add Contact</button>
-            <span id = "addResult"></span> <!-- will state if user can be added or not -->
+            <input type = "text" placeholder = "Doe" id = "addUserLN">
+          </div>
+          </div>
+
+						<!-- Other Contact Info -->
+						<br/>Address 1:
+							<input type = "text" placeholder = "Address 1"  id = "addUserAd1">
+						Address 2:
+							<input type = "text" placeholder = "Address 2"  id = "addUserAd2">
+
+            <div class = "flexgroup">
+						        <br/>
+                  <div id = "field" >City:
+    							<input type = "text" placeholder = "City" id = "addUserCity">
+                </div>
+
+
+                <div id = "field" >
+    						State:
+    							<input type = "text" placeholder = "State"  id = "addUserState">
+                </div>
+            </div>
+
+						ZIP Code:
+							<input type = "number" placeholder = "ZIP Code" id = "addUserZip">
+						<br/>Phone Number:
+							<input type = "tel" placeholder = "Phone Number"  id = "addUserPhone">
+<br/>
+          <div class = "flexgroup2">
+              <br/><button type = "button" id = "addButton" class = "buttons" onclick="doAdd();">
+              Add Contact</button>
+              <span id = "addResult"></span> <!-- will state if user can be added or not -->
+          </div>
 
       </div>
     </div>
