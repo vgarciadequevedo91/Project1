@@ -1,3 +1,4 @@
+
 body {
     font-family: 'Open Sans', sans-serif;
     margin: 0px;
@@ -17,7 +18,7 @@ body {
 input {
     display: block;
     margin-top: 4px;
-    width: 250px;
+    width: 400px;
     height: 40px;
     border-radius: 5px;
     border: 1px solid #e0e0e0;
@@ -25,6 +26,73 @@ input {
     padding: 10px;
     font-size: 14px;
 }
+
+.signedinText
+{
+  display: flex;
+  /* display: inline; */
+  width: 400px;
+  align-content: center;
+  justify-content: center;
+}
+
+.flexgroup2
+{
+  display: flex;
+  width: 400px;
+  align-content: center;
+  justify-content: center;
+
+}
+
+
+
+.flexgroup
+{
+  display: flex;
+  width: 400px;
+}
+
+#otherUserFN
+{
+  width: 195px;
+  margin-right: 10px;
+}
+
+#otherUserLN
+{
+  width: 195px;
+}
+
+#addUserFN
+{
+
+  width: 195px;
+  margin-right: 10px;
+}
+
+#addUserLN
+{
+
+  width: 195px;
+}
+
+#field
+{
+  display: block;
+}
+
+#addUserState
+{
+  width: 150px;
+}
+
+#addUserCity
+{
+  width: 240px;
+  margin-right: 10px;
+}
+
 
 input:focus {
     border: 1px solid #0099ff;
@@ -45,7 +113,7 @@ input:focus {
 }
 
 button {
-    width: 250px;
+    width: 150px;
     height: 44px;
     border-radius: 5px;
     border: 1px solid #e0e0e0;
