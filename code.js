@@ -15,7 +15,7 @@ function doAdd()
     var state = document.getElementById("addUserState").value;
     var zip = document.getElementById("addUserZip").value;
     var phoneNumber = document.getElementById("addUserPhone").value;
-    var userID = firstName + "_" + "friend";
+    var userID = firstName.toLowerCase() + "_" + "friend";
 
     //Single object
     var jsonPayload = {
