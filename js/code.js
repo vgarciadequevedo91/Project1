@@ -107,5 +107,20 @@ function doLogout()
 
 function doSearch()
 {
+    var firstName = document.getElementById("otherUserFN").value;
+    var lastName = document.getElementById("otherUserLN").value;
 
+    var jsonPayload = {
+        'userID' : firstName.toLowerCase() + "_" + "friend",
+    }
+
+
+    $.ajax({
+        type: 'GET',
+        data: jsonPayload,
+        url: '/contacts/',
+        dataType : 'JSON'
+    }).done(function(server_data) {
+        console.log(server_data)
+    }).fail(function() { console.log("failed") });
 }
