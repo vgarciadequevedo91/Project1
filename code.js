@@ -1,4 +1,9 @@
 
+
+hideOrShow( "UI", false);
+hideOrShow("loggedin", false)
+
+
 function doAdd()
 {
 
@@ -38,17 +43,19 @@ function doAdd()
 
 }
 
-function doDelete(){
+function doDelete()
+{
 
     //Confirm Deletion
     var confirmation = confirm('Are You Sure?');
 
 
+    //If deletion is confirmed proceed
     if (confirmation === true) {
 
         $.ajax({
             type: 'DELETE',
-            url: '/contacts/' +
+            url: '/contacts/'
         }).done(function( response ) {
 
         });
@@ -60,5 +67,35 @@ function doDelete(){
     }
 }
 
+function hideOrShow( elementId, showState )
+{
+    var vis = "visible";
+    var dis = "block";
+    if( !showState )
+    {
+        vis = "hidden";
+        dis = "none";
+    }
 
+    document.getElementById( elementId ).style.visibility = vis;
+    document.getElementById( elementId ).style.display = dis;
+}
 
+function doLogin()
+{
+    //Show UI when logged in
+    hideOrShow( "UI", true);
+    hideOrShow( "loggedin", true);
+}
+
+function doLogout()
+{
+    //Show nothing when logged out
+    hideOrShow( "UI", false);
+    hideOrShow( "loggedin", false);
+}
+
+function doSearch()
+{
+
+}
