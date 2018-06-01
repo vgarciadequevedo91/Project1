@@ -1,0 +1,64 @@
+
+function doAdd()
+{
+
+    var firstName = document.getElementById("addUserFN").value;
+    var lastName = document.getElementById("addUserLN").value;
+    var address1 = document.getElementById("addUserAd1").value;
+    var address2 = document.getElementById("addUserAd2").value;
+    var city = document.getElementById("addUserCity").value;
+    var state = document.getElementById("addUserState").value;
+    var zip = document.getElementById("addUserZip").value;
+    var phoneNumber = document.getElementById("addUserPhone").value;
+    var userID = firstName + "_" + "friend";
+
+    //Single object
+    var jsonPayload = {
+        'firstName' : firstName,
+        'lastName' : lastName,
+        'userID' : userID,
+        'phoneNumber' : phoneNumber,
+        'zipCode' : zip,
+        'city' : city,
+        'state' : state,
+        'address1' : address1,
+        'address2' : address2,
+    }
+
+
+    //AJAX for adding contact
+    $.ajax({
+        type: 'POST',
+        data: jsonPayload,
+        url: '/contacts/',
+        dataType : 'JSON'
+    }).done(function(server_data) {
+        console.log(server_data)
+    }).fail(function() { console.log("failed") });
+
+}
+
+function doDelete(){
+
+    //Confirm Deletion
+    var confirmation = confirm('Are You Sure?');
+
+
+    if (confirmation === true) {
+
+        $.ajax({
+            type: 'DELETE',
+            url: '/contacts/' +
+        }).done(function( response ) {
+
+        });
+
+    }
+    else {
+        return false;
+
+    }
+}
+
+
+
