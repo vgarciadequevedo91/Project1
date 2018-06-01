@@ -22,14 +22,6 @@ var dbConnection = mysql.createConnection({
   database: 'group5db'
 })
 
-// Production connection, comment out for local testing
-var dbConnection = mysql.createConnection({
-  host: process.env.RDS_HOSTNAME,
-  user: process.env.RDS_USERNAME,
-  password: process.env.RDS_PASSWORD,
-  port: process.env.RDS_PORT
-})
-
 // TODO: Finish officially connecting to database
 dbConnection.connect(function(error) {
   if (error) {
@@ -43,6 +35,7 @@ dbConnection.connect(function(error) {
 // Add a new contact
 app.post('/contacts/', function (req, res) {
   var query = dbConnection.query('INSERT INTO Contacts SET ?', req.query, function (error, results, fields) {
+    console.log(error)
     if (error) error = 1
     res.send(JSON.stringify({'status': 200, 'error': error, 'response': results}))
   })
@@ -51,6 +44,7 @@ app.post('/contacts/', function (req, res) {
 // Get a list of all contacts for a user
 app.get('/contacts/', function (req, res) {
   var query = dbConnection.query('SELECT * FROM Contacts WHERE userID = "' + req.query.userID + '"', function (error, results, fields) {
+    console.log(error)
     if (error) error = 1
     res.send(JSON.stringify({'status': 200, 'error': error, 'response': results}))
   })
@@ -59,6 +53,7 @@ app.get('/contacts/', function (req, res) {
 // Delete Contacts entry
 app.delete('/contacts/', function (req, res) {
   var query = dbConnection.query('DELETE FROM Contacts WHERE firstName = "' + req.query.firstName + '" AND lastName = "' + req.query.lastName + '"', function (error, results, fields) {
+    console.log(error)
     if (error) error = 1
     res.send(JSON.stringify({'status': 200, 'error': error, 'response': results}))
   })
