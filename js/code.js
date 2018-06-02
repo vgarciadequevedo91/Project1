@@ -1,8 +1,31 @@
+function pageLoaded() {
+    let usernameField = document.getElementById("loginUser")
+    let passwordField = document.getElementById("loginPassword")
 
+    // listen for enter key on username field
+    usernameField.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            if (usernameField.validity.valid && passwordField.validity.valid) {
+                doLogin();
+            } else {
+                passwordField.focus();
+            }
+        }
+    });
 
-hideOrShow( "UI", false);
-hideOrShow("loggedin", false)
-
+    // listen for enter key on password field
+    passwordField.addEventListener("keyup", function(event) {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            if (usernameField.validity.valid && passwordField.validity.valid) {
+                doLogin();
+            } else {
+                usernameField.focus();
+            }
+        }
+    });
+}
 
 function doAdd()
 {
@@ -79,30 +102,50 @@ function doDelete()
 
 function hideOrShow( elementId, showState )
 {
-    var vis = "visible";
-    var dis = "block";
-    if( !showState )
-    {
-        vis = "hidden";
-        dis = "none";
-    }
-
-    document.getElementById( elementId ).style.visibility = vis;
-    document.getElementById( elementId ).style.display = dis;
+    document.getElementById( elementId ).style.display = showState ? "block" : "none";
 }
 
 function doLogin()
 {
-    //Show UI when logged in
-    hideOrShow( "UI", true);
-    hideOrShow( "loggedin", true);
+    let usernameField = document.getElementById("loginUser")
+    let passwordField = document.getElementById("loginPassword")
+    let hasUsername = usernameField.validity.valid
+    let hasPassword = passwordField.validity.valid
+    let borderColor = "#e0e0e0"
+
+    if (hasUsername && hasPassword) {
+        //Show search and add contacts when logged in
+        hideOrShow( "UI", true);
+        hideOrShow( "loggedin", true);
+        hideOrShow( "login", false);
+
+        passwordField.style.borderColor = borderColor
+        usernameField.style.borderColor = borderColor
+
+        document.getElementById("userName").innerHTML = usernameField.value
+        usernameField.value = null
+        passwordField.value = null
+    }
+    else if (hasUsername) {
+        usernameField.style.borderColor = borderColor
+        passwordField.style.borderColor = "red"
+    }
+    else if (hasPassword) {
+        passwordField.style.borderColor = borderColor
+        usernameField.style.borderColor = "red"
+    }
+    else {
+        usernameField.style.borderColor = "red"
+        passwordField.style.borderColor = "red"
+    }
 }
 
 function doLogout()
 {
-    //Show nothing when logged out
+    //Show login form when logged out
     hideOrShow( "UI", false);
     hideOrShow( "loggedin", false);
+    hideOrShow( "login", true);
 }
 
 function doSearch()

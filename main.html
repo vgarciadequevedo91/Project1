@@ -1,5 +1,3 @@
-
-
 <html>
   <!--
       FUNCTIONS TO BE IMPLEMENTED:
@@ -25,16 +23,27 @@
   </head>
 
 
-  <body>
+  <body onload="pageLoaded()">
     <div class="content">
-      <h1>Personal Contact Manager</h1> <!-- title of page, preferably name of program -->
+      <div class="header">
+        <h1>Personal Contact Manager</h1> <!-- title of page, preferably name of program -->
+
+        <div id = "loggedin" style = "display:none"> <!-- appearance when logged in -->
+          <div class = "signedinText">
+            Welcome, <span id ="userName"></span>
+          </div>
+          <button type = "button" id = "logoutButton" class = "buttons" onclick = "doLogout();">
+              Sign Out
+          </button>
+        </div>
+      </div>
 
       <div id = "login"> <!-- appearance when logging in -->
-          <h2>Please Log In</h2>
+          <br/><h3>Please Log In</h3>
           <br/>Username:
-            <input type = "text" placeholder = "Enter your username" id = "loginUser">
+            <input type = "text" placeholder = "Enter your username" id = "loginUser" required>
           <br/>Password:
-            <input type = "password" placeholder = "Enter your password" id = "loginPassword">
+            <input type = "password" placeholder = "Enter your password" id = "loginPassword" required>
 </br>
         <div class = "flexgroup2">
             <br/><button type = "button" id = "loginButton" class = "buttons" onclick="doLogin();">
@@ -47,20 +56,7 @@
 
       </div>
 
-  <!-- REMEMBER TO ALTER VISIBILITY OF COMPONENTS BELOW -->
-<br/>
-      <div id = "loggedin" style = "visibility:hidden;"> <!-- appearance when logged in -->
-
-          <div class = "signedinText"> Successfully signed in as <span id ="userName"></span> </div>
-        </br>
-          <div class = "flexgroup2">
-              <button type = "button" id = "logoutButton" class = "buttons" onclick = "doLogout();">
-                Sign Out</button>
-          </div>
-      </div>
-
-
-      <div id = "UI" style = "visibility:hidden;"> <!-- overall UI, when logged in -->
+      <div id = "UI" style = "display:none"> <!-- overall UI, when logged in -->
             <br/>
             <h3>Search for Contact</h3>
             <div class = "flexgroup">
@@ -88,7 +84,7 @@
 
 
             <!-- if user not found, will display user already added -->
-            <br/><br/>
+            <br/><br/><br/><br/>
             <h3>Add Contact</h3>
 
 
