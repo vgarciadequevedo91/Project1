@@ -153,17 +153,107 @@ function doSearch()
     var firstName = document.getElementById("otherUserFN").value;
     var lastName = document.getElementById("otherUserLN").value;
 
+
     var jsonPayload = {
         'userID' : firstName.toLowerCase() + "_" + "friend",
     }
 
 
+
     $.ajax({
         type: 'GET',
+        async : false,
         data: jsonPayload,
         url: '/contacts/',
-        dataType : 'JSON'
-    }).done(function(server_data) {
-        console.log(server_data)
-    }).fail(function() { console.log("failed") });
+        dataType: 'JSON',
+        success: function(server_data){
+
+            if(JSON.stringify(server_data.response).length < 3) {
+                alert("Contact not found");
+            }
+
+            else
+                {
+                var userData = [];
+                var brokenString = JSON.stringify(server_data.response).split(",");
+                var displayString = "";
+
+                //Brake up the JSON string and
+                for (var i = 1; i < 10; i++)
+                {
+                    var temp = brokenString[i].split(":");
+                    userData[i] = temp[1];
+                }
+
+                //Parse through the user data and
+                for (var i = 1; i < userData.length; i++)
+                {
+                    var temp = userData[i].split("");
+                    var element = [];
+
+                    for (var j = 1; j < temp.length - 1; j++)
+                    {
+                        element[j - 1] = temp[j];
+                    }
+
+                    //Obtain userData elements without quotations
+                    for (var j = 0; j < element.length; j++)
+                    {
+                        if(i != 3)
+                        {
+                            //Diplay the first values as they are
+                            if (i < 9) {
+
+                                if (element[j] != 'Undefined') {
+                                    displayString += element[j];
+                                }
+
+                            }
+
+                            //else ignore unwanted characters
+                            else {
+                                if (j < element.length - 2) {
+                                    displayString += element[j];
+                                }
+                            }
+                        }
+                    }
+
+                    //First Name and Last Name on the same line
+                    if (i == 1) {
+                        displayString += " ";
+                    }
+
+                    //userID might not need to be displayed
+                    else if (i == 3)
+                    {
+                        //Skip the user ID
+                    }
+
+                    //Skip lines
+                    else if (i < 7) {
+                        displayString += "\n";
+                    }
+
+                    //City and State seperated by comma
+                    else if (i == 7) {
+                        displayString += ", "
+                    }
+
+                    //Zip on the same line as city and state
+                    else {
+                        displayString += " "
+                    }
+                }
+
+                //Display the final text to the user
+                alert(displayString);
+            }
+        }
+
+    }).done(function (server_data) {
+    }).fail(function () {
+        console.log("failed")
+    });
+
 }
