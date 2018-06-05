@@ -1,3 +1,5 @@
+var username = ''
+
 function pageLoaded() {
     let usernameField = document.getElementById("loginUser")
     let passwordField = document.getElementById("loginPassword")
@@ -38,7 +40,8 @@ function doAdd()
     var state = document.getElementById("addUserState").value;
     var zip = document.getElementById("addUserZip").value;
     var phoneNumber = document.getElementById("addUserPhone").value;
-    var userID = firstName.toLowerCase() + "_" + "friend";
+    //var userID = firstName.toLowerCase() + "_" + "friend";
+    var userID = username;
 
     //Single object
     var jsonPayload = {
@@ -58,7 +61,8 @@ function doAdd()
     $.ajax({
         type: 'POST',
         data: jsonPayload,
-        url: '/contacts/',
+        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/',
+        //url: 'http://localhost:8081/contacts/',
         dataType : 'JSON'
     }).done(function(server_data) {
         console.log(server_data)
@@ -87,7 +91,8 @@ function doDelete()
         $.ajax({
             type: 'DELETE',
             data: jsonPayload,
-            url: '/contacts/',
+            url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/',
+            //url: 'http://localhost:8081/contacts/',
             dataType : 'JSON'
         }).done(function(server_data) {
             console.log(server_data)
@@ -123,6 +128,10 @@ function doLogin()
         usernameField.style.borderColor = borderColor
 
         document.getElementById("userName").innerHTML = usernameField.value
+
+        // Set user name for this session
+        username = usernameField.value;
+
         usernameField.value = null
         passwordField.value = null
     }
@@ -146,6 +155,9 @@ function doLogout()
     hideOrShow( "UI", false);
     hideOrShow( "loggedin", false);
     hideOrShow( "login", true);
+
+    // clear username
+    username = ''
 }
 
 function doSearch()
@@ -155,20 +167,22 @@ function doSearch()
 
 
     var jsonPayload = {
-        'userID' : firstName.toLowerCase() + "_" + "friend",
+        'firstName' : firstName,
+        'lastName' : lastName
     }
-
+    console.log(jsonPayload)
 
 
     $.ajax({
         type: 'GET',
-        async : false,
-        data: jsonPayload,
-        url: '/contacts/',
+        async: true,
+        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName,
+        //url: 'http://localhost:8081/contacts/?firstName=' + firstName + '&lastName=' + lastName,
         dataType: 'JSON',
         success: function(server_data){
 
             if(JSON.stringify(server_data.response).length < 3) {
+              console.log(JSON.stringify(server_data.response))
                 alert("Contact not found");
             }
 
