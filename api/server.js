@@ -1,6 +1,7 @@
 var express = require('express')
 var mysql = require('mysql')
 var bodyParser = require('body-parser')
+var cors = require('cors')
 var app = express()
 
 // parse application/x-www-form-urlencoded
@@ -8,12 +9,15 @@ app.use(bodyParser.urlencoded({ extended: false }))
 // parse application/json
 app.use(bodyParser.json())
 
+// Allow cross-domain communication
+app.use(cors())
+app.options('*', cors())
+
 // Probably don't need this production deployment
 app.listen(8081, function() {
   console.log('App running on port 8081.')
 })
 
-// Dev connection, comment out for production deployment
 var dbConnection = mysql.createConnection({
   host: 'aaup68o0mixgl.ca8q3xhabeql.us-west-2.rds.amazonaws.com',
   port: '3306',
@@ -22,7 +26,6 @@ var dbConnection = mysql.createConnection({
   database: 'group5db'
 })
 
-// TODO: Finish officially connecting to database
 dbConnection.connect(function(error) {
   if (error) {
     console.log("Error connecting to server.")
@@ -34,7 +37,7 @@ dbConnection.connect(function(error) {
 
 // Add a new contact
 app.post('/contacts/', function (req, res) {
-  var query = dbConnection.query('INSERT INTO Contacts SET ?', req.query, function (error, results, fields) {
+  var query = dbConnection.query('INSERT INTO Contacts SET ?', req.body, function (error, results, fields) {
     console.log(error)
     if (error) error = 1
     res.send(JSON.stringify({'status': 200, 'error': error, 'response': results}))
@@ -43,7 +46,7 @@ app.post('/contacts/', function (req, res) {
 
 // Get a list of all contacts for a user
 app.get('/contacts/', function (req, res) {
-  var query = dbConnection.query('SELECT * FROM Contacts WHERE userID = "' + req.query.userID + '"', function (error, results, fields) {
+  var query = dbConnection.query('SELECT * FROM Contacts WHERE firstName = "' + req.query.firstName + '" AND lastName = "' + req.query.lastName + '"', function (error, results, fields) {
     console.log(error)
     if (error) error = 1
     res.send(JSON.stringify({'status': 200, 'error': error, 'response': results}))
@@ -52,7 +55,7 @@ app.get('/contacts/', function (req, res) {
 
 // Delete Contacts entry
 app.delete('/contacts/', function (req, res) {
-  var query = dbConnection.query('DELETE FROM Contacts WHERE firstName = "' + req.query.firstName + '" AND lastName = "' + req.query.lastName + '"', function (error, results, fields) {
+  var query = dbConnection.query('DELETE FROM Contacts WHERE firstName = "' + req.body.firstName + '" AND lastName = "' + req.body.lastName + '"', function (error, results, fields) {
     console.log(error)
     if (error) error = 1
     res.send(JSON.stringify({'status': 200, 'error': error, 'response': results}))
