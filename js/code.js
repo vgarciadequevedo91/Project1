@@ -41,9 +41,6 @@ function doAdd()
     var zip = document.getElementById("addUserZip").value;
     var phoneNumber = document.getElementById("addUserPhone").value;
 
-    alert(userID);
-
-
     //Single object
     var jsonPayload = {
         'firstName' : firstName,
