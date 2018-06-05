@@ -1,4 +1,4 @@
-var username = ''
+ userID;
 
 function pageLoaded() {
     let usernameField = document.getElementById("loginUser")
@@ -40,8 +40,9 @@ function doAdd()
     var state = document.getElementById("addUserState").value;
     var zip = document.getElementById("addUserZip").value;
     var phoneNumber = document.getElementById("addUserPhone").value;
-    //var userID = firstName.toLowerCase() + "_" + "friend";
-    var userID = username;
+
+    alert(userID);
+
 
     //Single object
     var jsonPayload = {
@@ -124,6 +125,8 @@ function doLogin()
         hideOrShow( "loggedin", true);
         hideOrShow( "login", false);
 
+        userID = usernameField.value;
+
         passwordField.style.borderColor = borderColor
         usernameField.style.borderColor = borderColor
 
@@ -147,6 +150,12 @@ function doLogin()
         usernameField.style.borderColor = "red"
         passwordField.style.borderColor = "red"
     }
+
+    var jsonPayload = {
+        'userName' : usernameField,
+        'password' : passwordField,
+    }
+
 }
 
 function doLogout()
