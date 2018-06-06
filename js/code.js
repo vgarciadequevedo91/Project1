@@ -1,4 +1,4 @@
- userID;
+var userID;
 
 function pageLoaded() {
     let usernameField = document.getElementById("loginUser")
