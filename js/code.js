@@ -128,10 +128,7 @@ function doLogin()
         passwordField.style.borderColor = borderColor
         usernameField.style.borderColor = borderColor
 
-        document.getElementById("userName").innerHTML = usernameField.value
-
-        // Set user name for this session
-        username = usernameField.value;
+        document.getElementById("userName").innerHTML = userID
 
         usernameField.value = null
         passwordField.value = null
@@ -163,8 +160,8 @@ function doLogout()
     hideOrShow( "loggedin", false);
     hideOrShow( "login", true);
 
-    // clear username
-    username = ''
+    // clear ID
+    userID = ''
 }
 
 function doSearch()
