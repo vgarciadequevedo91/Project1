@@ -44,6 +44,15 @@ app.post('/contacts/', function (req, res) {
   })
 })
 
+// Check that user is in database
+app.post('/users/', function (req, res) {
+  var query = dbConnection.query('SELECT * FROM Users WHERE userName = "' + req.body.userName + '"AND password = "' + req.body.password + '"', function(error, results, fields) {
+    console.log(error)
+    if (error) error = 1
+    res.send(JSON.stringify({'status': 200, 'error': error, 'response': results}))
+  })
+})
+
 // Get a list of all contacts for a user
 app.get('/contacts/', function (req, res) {
   var query = dbConnection.query('SELECT * FROM Contacts WHERE firstName = "' + req.query.firstName + '" AND lastName = "' + req.query.lastName + '"', function (error, results, fields) {
