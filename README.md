@@ -3,7 +3,7 @@
 Group 5
 -------
 General Information:
-
+This is a personal contact manager. The user should be able to log in/log out securely, add, delete, search, and view their contacts.
 
 
 Authors:
