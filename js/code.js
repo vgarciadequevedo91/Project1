@@ -31,15 +31,55 @@ function pageLoaded() {
 
 function doAdd()
 {
+    // get values
+    let firstNameField = document.getElementById("addUserFN")
+    let lastNameField = document.getElementById("addUserLN")
+    let zipField = document.getElementById("addUserZip")
+    let phoneNumberField = document.getElementById("addUserPhone")
 
-    var firstName = document.getElementById("addUserFN").value;
-    var lastName = document.getElementById("addUserLN").value;
-    var address1 = document.getElementById("addUserAd1").value;
-    var address2 = document.getElementById("addUserAd2").value;
-    var city = document.getElementById("addUserCity").value;
-    var state = document.getElementById("addUserState").value;
-    var zip = document.getElementById("addUserZip").value;
-    var phoneNumber = document.getElementById("addUserPhone").value;
+    let firstName = firstNameField.value;
+    let lastName = lastNameField.value;
+    let address1 = document.getElementById("addUserAd1").value;
+    let address2 = document.getElementById("addUserAd2").value;
+    let city = document.getElementById("addUserCity").value;
+    let state = document.getElementById("addUserState").value;
+    let zip = zipField.value;
+    let phoneNumber = phoneNumberField.value;
+
+    // validate
+    var isInvalid = false
+    let hasFirstName = firstNameField.validity.valid
+    let hasLastName = lastNameField.validity.valid
+    let zipIsValid = /^\d{5}(?:[-\s]\d{4})?$/.test(zip)
+    let phoneNumberIsValid = /^[\+]?[(]?[0-9]{3}[)]?[-\s\.]?[0-9]{3}[-\s\.]?[0-9]{4,6}$/im.test(phoneNumber)
+    let borderColor = "#e0e0e0"
+
+    firstNameField.style.borderColor = borderColor
+    lastNameField.style.borderColor = borderColor
+    zipField.style.borderColor = borderColor
+    phoneNumberField.style.borderColor = borderColor
+
+    if (!hasFirstName) {
+        isInvalid = true
+        firstNameField.style.borderColor = "red"
+    }
+
+    if (!hasLastName) {
+        isInvalid = true
+        lastNameField.style.borderColor = "red"
+    }
+
+    if (zip != "" && !zipIsValid) {
+        isInvalid = true
+        zipField.style.borderColor = "red"
+    }
+
+    if (!phoneNumberIsValid) {
+        isInvalid = true
+        phoneNumberField.style.borderColor = "red"
+    }
+
+    if (isInvalid) return;
 
     //Single object
     var jsonPayload = {
