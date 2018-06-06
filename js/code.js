@@ -111,10 +111,11 @@ function doAdd()
 
 function doDelete()
 {
+    if (!validateSearchFields()) return;
 
     var firstName = document.getElementById("otherUserFN").value;
     var lastName = document.getElementById("otherUserLN").value;
-
+    
     var jsonPayload = {
         'firstName' : firstName,
         'lastName' : lastName,
@@ -206,6 +207,8 @@ function doLogout()
 
 function doSearch()
 {
+    if (!validateSearchFields()) return;
+
     var firstName = document.getElementById("otherUserFN").value;
     var lastName = document.getElementById("otherUserLN").value;
 
@@ -314,4 +317,29 @@ function doSearch()
         console.log("failed")
     });
 
+}
+
+function validateSearchFields() {
+    let firstNameField = document.getElementById("otherUserFN")
+    let lastNameField = document.getElementById("otherUserLN")
+
+    var isInvalid = false
+    let hasFirstName = firstNameField.validity.valid
+    let hasLastName = lastNameField.validity.valid
+    let borderColor = "#e0e0e0"
+
+    firstNameField.style.borderColor = borderColor
+    lastNameField.style.borderColor = borderColor
+
+    if (!hasFirstName) {
+        isInvalid = true
+        firstNameField.style.borderColor = "red"
+    }
+
+    if (!hasLastName) {
+        isInvalid = true
+        lastNameField.style.borderColor = "red"
+    }
+
+    return !isInvalid
 }
