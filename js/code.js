@@ -63,6 +63,7 @@ function doAdd()
         //url: 'http://localhost:8081/contacts/',
         dataType : 'JSON'
     }).done(function(server_data) {
+        alert(firstName + " " + lastName + " has been added to your contacts.");
         console.log(server_data)
     }).fail(function() { console.log("failed") });
 
