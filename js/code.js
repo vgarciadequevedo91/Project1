@@ -132,8 +132,8 @@ function doDelete()
         $.ajax({
             type: 'DELETE',
             data: jsonPayload,
-            url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID',
-            //url: 'http://localhost:8081/contacts/firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
+            url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
+            //url: 'http://localhost:8081/contacts/?firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
             dataType : 'JSON'
         }).done(function(server_data) {
             console.log(server_data)
@@ -161,9 +161,34 @@ function doLogin()
 
     if (hasUsername && hasPassword) {
         //Show search and add contacts when logged in
-        hideOrShow( "UI", true);
-        hideOrShow( "loggedin", true);
-        hideOrShow( "login", false);
+
+        var jsonPayload = {
+            'userName' : usernameField.value,
+            'password' : passwordField.value,
+        }
+
+
+        $.ajax({
+            type: 'POST',
+            data: jsonPayload,
+            url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/users/?userName=' + usernameField.value + '&password=' + passwordField.value,
+            //url: 'http://localhost:8081/users/?userName=' + usernameField.value + '&password=' + passwordField.value,
+            dataType : 'JSON'
+        }).done(function(server_data) {
+
+            if(JSON.stringify(server_data.response).length > 3)
+            {
+                hideOrShow("UI", true);
+                hideOrShow("loggedin", true);
+                hideOrShow("login", false);
+            }
+
+            else
+            {
+                alert("Username and/or Password is invalid");
+            }
+
+        }).fail(function() { console.log("failed") });
 
         userID = usernameField.value;
 
@@ -188,20 +213,6 @@ function doLogin()
         passwordField.style.borderColor = "red"
     }
 
-    var jsonPayload = {
-        'userName' : usernameField.value,
-        'password' : passwordField.value,
-    }
-
-    $.ajax({
-        type: 'POST',
-        data: jsonPayload,
-        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?userName=' + usernameField.value + '&password=' + passwordField.value',
-        //url: 'http://localhost:8081/users/?userName=' + usernameField.value + '&password=' + passwordField.value,
-        dataType : 'JSON'
-    }).done(function(server_data) {
-        console.log(server_data)
-    }).fail(function() { console.log("failed") });
 
 }
 
@@ -235,7 +246,7 @@ function doSearch()
     $.ajax({
         type: 'GET',
         async: true,
-        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
+        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName,
         //url: 'http://localhost:8081/contacts/?firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
         dataType: 'JSON',
         success: function(server_data){
