@@ -115,7 +115,7 @@ function doDelete()
 
     var firstName = document.getElementById("otherUserFN").value;
     var lastName = document.getElementById("otherUserLN").value;
-    
+
     var jsonPayload = {
         'firstName' : firstName,
         'lastName' : lastName,
@@ -132,8 +132,8 @@ function doDelete()
         $.ajax({
             type: 'DELETE',
             data: jsonPayload,
-            url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/',
-            //url: 'http://localhost:8081/contacts/',
+            url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID',
+            //url: 'http://localhost:8081/contacts/firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
             dataType : 'JSON'
         }).done(function(server_data) {
             console.log(server_data)
@@ -189,9 +189,19 @@ function doLogin()
     }
 
     var jsonPayload = {
-        'userName' : usernameField,
-        'password' : passwordField,
+        'userName' : usernameField.value,
+        'password' : passwordField.value,
     }
+
+    $.ajax({
+        type: 'POST',
+        data: jsonPayload,
+        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?userName=' + usernameField.value + '&password=' + passwordField.value',
+        //url: 'http://localhost:8081/users/?userName=' + usernameField.value + '&password=' + passwordField.value,
+        dataType : 'JSON'
+    }).done(function(server_data) {
+        console.log(server_data)
+    }).fail(function() { console.log("failed") });
 
 }
 
@@ -225,18 +235,18 @@ function doSearch()
     $.ajax({
         type: 'GET',
         async: true,
-        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName,
-        //url: 'http://localhost:8081/contacts/?firstName=' + firstName + '&lastName=' + lastName,
+        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
+        //url: 'http://localhost:8081/contacts/?firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
         dataType: 'JSON',
         success: function(server_data){
 
             if(JSON.stringify(server_data.response).length < 3) {
-              console.log(JSON.stringify(server_data.response))
+                console.log(JSON.stringify(server_data.response))
                 alert("Contact not found");
             }
 
             else
-                {
+            {
                 var userData = [];
                 var brokenString = JSON.stringify(server_data.response).split(",");
                 var displayString = "";
