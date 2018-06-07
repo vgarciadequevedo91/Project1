@@ -119,6 +119,7 @@ function doDelete()
     var jsonPayload = {
         'firstName' : firstName,
         'lastName' : lastName,
+        'userID' : userID
     }
 
     //Confirm Deletion
@@ -215,7 +216,8 @@ function doSearch()
 
     var jsonPayload = {
         'firstName' : firstName,
-        'lastName' : lastName
+        'lastName' : lastName,
+        'userID' : userID
     }
     console.log(jsonPayload)
 
