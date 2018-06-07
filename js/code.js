@@ -178,6 +178,12 @@ function doLogin()
 
             if(JSON.stringify(server_data.response).length > 3)
             {
+                userID = usernameField.value;
+                document.getElementById("userName").innerHTML = userID
+        
+                usernameField.value = null
+                passwordField.value = null
+
                 hideOrShow("UI", true);
                 hideOrShow("loggedin", true);
                 hideOrShow("login", false);
@@ -190,15 +196,8 @@ function doLogin()
 
         }).fail(function() { console.log("failed") });
 
-        userID = usernameField.value;
-
         passwordField.style.borderColor = borderColor
         usernameField.style.borderColor = borderColor
-
-        document.getElementById("userName").innerHTML = userID
-
-        usernameField.value = null
-        passwordField.value = null
     }
     else if (hasUsername) {
         usernameField.style.borderColor = borderColor
