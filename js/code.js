@@ -246,7 +246,7 @@ function doSearch()
     $.ajax({
         type: 'GET',
         async: true,
-        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName,
+        url: 'http://group5cm-env.h5pguqnamr.us-west-2.elasticbeanstalk.com/contacts/?firstName=' + firstName + '&lastName=' + lastName + '&userID=' + userID, 
         //url: 'http://localhost:8081/contacts/?firstName=' + firstName + '&lastName=' + lastName + "&userID=" + userID,
         dataType: 'JSON',
         success: function(server_data){
