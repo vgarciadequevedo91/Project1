@@ -178,15 +178,15 @@ function doLogin()
 
             if(JSON.stringify(server_data.response).length > 3)
             {
+                hideOrShow("UI", true);
+                hideOrShow("loggedin", true);
+                hideOrShow("login", false);
+
                 userID = usernameField.value;
                 document.getElementById("userName").innerHTML = userID
         
                 usernameField.value = null
                 passwordField.value = null
-
-                hideOrShow("UI", true);
-                hideOrShow("loggedin", true);
-                hideOrShow("login", false);
             }
 
             else
